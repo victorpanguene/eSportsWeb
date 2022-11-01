@@ -1,10 +1,29 @@
-import './styles/main.css';
+import { useEffect, useState } from 'react';
 import logo from './assets//logo.svg';
 import { CreateAdBanner } from './components/CreateAdBanner';
 import { PostAd } from './components/PostAd';
+import './styles/main.css';
 
+interface Games {
+  id: string;
+  titles: string;
+  bannerUrl: string;
+  _count: {
+    ads: number;
+  };
+}
 
 function App() {
+  const [games, setGames] = useState<Games[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/games')
+      .then((response) => response.json())
+      .then((data) => {
+        setGames(data); 
+      });
+  }, []);
+
   return (
     <div className="max-w-[1344px] mx-auto my-20 flex flex-col items-center">
       <img src={logo} alt="eSports Logo Image" />
@@ -18,13 +37,20 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        <CreateAdBanner title='Title of testing' adsCount={3} bannerUrl="/game-1.png"/>
+        {games.map((game) => {
+          return (
+            <CreateAdBanner
+              key={game.id}
+              title={game.titles}
+              adsCount={game._count.ads}
+              bannerUrl={game.bannerUrl}
+            />
+          );
+        })}
       </div>
-      <PostAd/>
+      <PostAd />
     </div>
   );
 }
 
 export default App;
-
-
