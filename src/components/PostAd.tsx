@@ -1,4 +1,5 @@
 import { MagnifyingGlassPlus } from 'phosphor-react';
+import * as Dialog from '@radix-ui/react-dialog';
 
 export function PostAd() {
   return (
@@ -11,11 +12,12 @@ export function PostAd() {
           <span className="text-zinc-400">
             Publique um anuncio para encontrar novos players
           </span>
-        </div>
-        <button className="px-3 py-4 bg-violet-500 hover:bg-violet-600 text-white rounded flex item-center gap-3">
+     </div>
+     
+        <Dialog.Trigger className="px-3 py-4 bg-violet-500 hover:bg-violet-600 text-white rounded flex item-center gap-3">
           <MagnifyingGlassPlus size={24} />
           Publicar anúncio
-        </button>
+        </Dialog.Trigger>
       </div>
     </div>
   );
